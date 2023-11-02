@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { createOrderRequest } from './create-order-request.dto';
+import { CreateOrderRequest } from './create-order-request.dto';
 
 @Controller()
 export class AppController {
@@ -12,7 +12,7 @@ export class AppController {
   }
 
   @Post()
-  createOrder(@Body() createOrderRequest: createOrderRequest) {
+  createOrder(@Body() createOrderRequest: CreateOrderRequest) {
     this.appService.createOrder(createOrderRequest);
   }
 }
