@@ -1,14 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { createOrderRequest } from './create-order-request.dto';
+import { ClientKafka } from '@nestjs/microservices';
+import { OrderCreatedEvent } from './order-created.event';
 
 @Injectable()
 export class AppService {
+  constructor(
+    @Inject('BILLING_SERVICE') private readonly billingClient: ClientKafka,
+  ) {}
   getHello(): string {
     return 'Hello World!';
   }
 
   createOrder({ userId, price }: createOrderRequest) {
-    console.log(userId);
-    console.log(price);
+    // emit using tcp
+    this.billingClient.emit(
+      'order_created',
+      // change to json string
+      new OrderCreatedEvent('123', userId, price),
+    );
   }
 }
