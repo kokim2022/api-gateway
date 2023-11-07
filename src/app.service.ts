@@ -9,7 +9,7 @@ export class AppService {
     @Inject('BILLING_SERVICE') private readonly billingClient: ClientKafka,
   ) {}
   getHello(): string {
-    return 'Hello World!';
+    return 'running the api gateway.!';
   }
 
   createOrder({ userId, price }: CreateOrderRequest) {
